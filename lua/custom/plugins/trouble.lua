@@ -3,29 +3,29 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   opts = {},
   init = function()
-    require('which-key').register {
-      ['<leader>t'] = { name = '[T]rouble' },
+    require('which-key').add {
+      { '<leader>b', group = 'Trou[B]le' },
     }
 
     local trouble = require 'trouble'
 
-    vim.keymap.set('n', '<leader>tx', function()
+    vim.keymap.set('n', '<leader>bx', function()
       trouble.toggle()
     end, { desc = 'Toggle Trouble' })
 
-    vim.keymap.set('n', '<leader>tw', function()
+    vim.keymap.set('n', '<leader>bw', function()
       trouble.toggle 'workspace_diagnostics'
     end, { desc = '[W]orkspace diagnostics' })
 
-    vim.keymap.set('n', '<leader>td', function()
+    vim.keymap.set('n', '<leader>bd', function()
       trouble.toggle 'document_diagnostics'
     end, { desc = '[D]ocument diagnostics' })
 
-    vim.keymap.set('n', '<leader>tq', function()
+    vim.keymap.set('n', '<leader>bq', function()
       trouble.toggle 'quickfix'
     end, { desc = '[Q]uickFix' })
 
-    vim.keymap.set('n', '<leader>tl', function()
+    vim.keymap.set('n', '<leader>bl', function()
       trouble.toggle 'loclist'
     end, { desc = '[L]ocList' })
 

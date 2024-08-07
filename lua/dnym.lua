@@ -18,25 +18,31 @@ vim.keymap.set('n', '<up>', '<NOP>')
 vim.keymap.set('n', '<down>', '<NOP>')
 
 -- I like to use light schemes during the day, dark at night.
-require('which-key').register {
-  ['<leader>x'] = { name = 'E[X]tras' },
+require('which-key').add {
+  { '<leader>x', group = 'E[X]tras' },
 }
 vim.keymap.set('n', '<leader>xs', function()
-  if vim.o.background == 'dark' then
-    vim.o.background = 'light'
+  if vim.g.colors_name == 'github_dark_high_contrast' then
+    vim.cmd.colorscheme 'github_light_high_contrast'
   else
-    vim.o.background = 'dark'
+    vim.cmd.colorscheme 'github_dark_high_contrast'
   end
 end, { desc = 'Toggle color[S]cheme' })
+
+vim.cmd.colorscheme 'github_dark_high_contrast'
 
 -- I like to write '{<CR>}' and then jump up to write the body inbetween.
 vim.keymap.set('i', '<C-b>', '<Esc>O')
 -- More convenient mode escape. I probably won't have to write 'jj' often.
 vim.keymap.set('i', 'jj', '<Esc>')
+-- For the lsp_signature.nvim plugin.
+vim.keymap.set({ 'n', 'i' }, '<C-u>', function()
+  require('lsp_signature').toggle_float_win()
+end, { silent = true, noremap = true, desc = 'toggle signature' })
 
 -- Via ThePrimeagen.
-require('which-key').register {
-  ['<leader>p'] = { name = '[P]roject helpers' },
+require('which-key').add {
+  { '<leader>p', group = '[P]roject helpers' },
 }
 local builtin = require 'telescope.builtin'
 vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Find by [F]ile name' })
