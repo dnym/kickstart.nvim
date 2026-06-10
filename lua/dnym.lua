@@ -1,5 +1,5 @@
 -- Force English; translations make finding information on error messages much harder.
-vim.api.nvim_exec2('language en_US', {})
+vim.cmd('language messages en_US.UTF-8', {})
 
 -- For Windows.
 -- vim.opt.guifont = 'Consolas:h11'
@@ -10,6 +10,7 @@ vim.api.nvim_exec2('language en_US', {})
 
 -- Relative numbers are good.
 vim.opt.relativenumber = true
+vim.o.cc = '100'
 
 -- Forces me to use hjkl.
 vim.keymap.set('n', '<left>', '<NOP>')
@@ -18,6 +19,7 @@ vim.keymap.set('n', '<up>', '<NOP>')
 vim.keymap.set('n', '<down>', '<NOP>')
 
 -- I like to use light schemes during the day, dark at night.
+vim.pack.add { 'https://github.com/projekt0n/github-nvim-theme' }
 require('which-key').add {
   { '<leader>x', group = 'E[X]tras' },
 }
@@ -61,3 +63,15 @@ end, { desc = 'Grep for [W]ORD below cursor' })
 vim.keymap.set('n', '<leader>ps', function()
   builtin.grep_string { search = vim.fn.input 'Grep > ' }
 end, { desc = 'Grep for entered [S]earch term' })
+
+vim.diagnostic.config {
+  virtual_text = {
+    spacing = 4,
+    prefix = '●',
+  },
+  severity_sort = true,
+}
+vim.keymap.set('n', '<leader>xe', function()
+  local current = vim.diagnostic.config().virtual_text
+  vim.diagnostic.config { virtual_text = not current }
+end)
